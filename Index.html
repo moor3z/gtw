@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G.T.W Garden Clearances — Garden Clearance & Lawn Care | Cheshire West & Chester and Flintshire</title>
+<meta name="description" content="Professional garden clearance, lawn cutting and green waste removal across Cheshire West & Chester and Flintshire. Licensed waste carrier. Free fixed quotes from photos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --evergreen:#0D2114;     /* darkest band */
+    --forest:#16341F;        /* dark band */
+    --leaf:#4E8C3B;          /* primary green */
+    --leaf-dark:#3E7230;
+    --gold:#C9A24B;          /* premium accent — numbers, stars, rules */
+    --paper:#FFFFFF;
+    --stone:#F4F6F1;         /* alt light band */
+    --ink:#1C2420;
+    --muted:#5E6B5F;
+    --line:#E2E7DE;
+    --line-dark:rgba(255,255,255,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Mulish',system-ui,sans-serif;color:var(--ink);
+    background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.num{font-family:'Marcellus',Georgia,serif;font-weight:400;line-height:1.12}
+  a{color:inherit}
+  ::selection{background:var(--gold);color:var(--evergreen)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2rem)}
+
+  .eyebrow{
+    display:block;font-weight:700;font-size:.78rem;letter-spacing:.3em;
+    text-transform:uppercase;margin-bottom:1rem;
+  }
+  .eyebrow.gold{color:var(--gold)}
+  .eyebrow.green{color:var(--leaf)}
+
+  .btn{
+    display:inline-block;text-decoration:none;text-align:center;
+    font-weight:700;font-size:.95rem;letter-spacing:.04em;
+    padding:.95rem 2rem;border-radius:6px;border:1.5px solid transparent;
+    transition:background .15s ease,color .15s ease,border-color .15s ease,transform .12s ease;
+    cursor:pointer;font-family:inherit;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn-solid{background:var(--leaf);color:#fff}
+  .btn-solid:hover{background:var(--leaf-dark)}
+  .btn-outline-light{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+  .btn-outline-light:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:90;
+    background:rgba(13,33,20,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{
+    max-width:1100px;margin:0 auto;padding:.95rem clamp(1.25rem,4vw,2rem);
+    display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  }
+  .logo{text-decoration:none;color:#fff;line-height:1.15}
+  .logo b{font-family:'Marcellus',serif;font-weight:400;font-size:1.3rem;letter-spacing:.02em}
+  .logo small{display:block;font-size:.6rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+  .nav-links{display:flex;gap:1.8rem;align-items:center}
+  .nav-links a.nl{color:#E5ECE3;text-decoration:none;font-weight:600;font-size:.9rem}
+  .nav-links a.nl:hover{color:var(--gold)}
+  .nav .btn{padding:.6rem 1.3rem;font-size:.86rem;white-space:nowrap}
+  @media(max-width:880px){
+    .nav-links a.nl{display:none}
+    .nav-inner{gap:.8rem;padding-top:.8rem;padding-bottom:.8rem}
+    .logo b{font-size:1rem;white-space:nowrap}
+    .logo small{font-size:.5rem;letter-spacing:.24em}
+    .nav .btn{padding:.5rem .9rem;font-size:.78rem}
+  }
+  @media(max-width:360px){
+    .logo b{font-size:.9rem}
+  }
+
+  /* ============ HERO (split: copy + lead form) ============ */
+  .hero{
+    position:relative;color:#fff;
+    padding:8.5rem 0 4.5rem;background:var(--evergreen);
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:var(--evergreen) url('hero.jpg') center/cover no-repeat;
+  }
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg,rgba(13,33,20,.80) 0%,rgba(13,33,20,.62) 55%,rgba(13,33,20,.42) 100%);
+  }
+  .hero .wrap{position:relative;z-index:2}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:2.5rem}}
+  .hero h1{font-size:clamp(2.3rem,4.8vw,3.6rem);margin-bottom:1.3rem}
+  .hero p.lead{
+    font-size:clamp(1rem,1.6vw,1.15rem);color:#D5E0D2;
+    margin-bottom:1.8rem;font-weight:500;max-width:50ch;
+  }
+  .hero-points{list-style:none;margin-bottom:0}
+  .hero-points li{display:flex;gap:.8rem;margin-bottom:.7rem;font-weight:600;color:#E5ECE3;font-size:.98rem}
+  .hero-points li::before{content:"—";color:var(--gold);font-weight:400}
+
+  .hero-stats{
+    position:relative;z-index:2;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line-dark);border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
+    max-width:1100px;margin:4rem auto 0;
+  }
+  .hero-stats div{background:rgba(13,33,20,.45);padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(2px)}
+  .hero-stats .num{font-size:2.1rem;color:var(--gold)}
+  .hero-stats p{font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C7D4C4;margin-top:.2rem}
+  @media(max-width:640px){.hero-stats{grid-template-columns:1fr}}
+
+  /* ============ LEAD FORM ============ */
+  form{
+    background:var(--paper);color:var(--ink);border-radius:8px;
+    padding:2.2rem 2rem;box-shadow:0 30px 70px rgba(0,0,0,.35);
+  }
+  form h3{font-size:1.5rem;color:var(--evergreen);margin-bottom:.3rem}
+  form .sub{font-size:.92rem;color:var(--muted);margin-bottom:1.5rem}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .field{margin-bottom:1.05rem}
+  label{display:block;font-weight:700;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;color:var(--evergreen)}
+  input,select,textarea{
+    width:100%;font:inherit;font-size:1rem;color:var(--ink);
+    border:1.5px solid var(--line);border-radius:6px;
+    padding:.78rem .9rem;background:#FBFCFA;
+    transition:border-color .15s ease;
+  }
+  input:hover,select:hover,textarea:hover{border-color:#B9C4B2}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--leaf);box-shadow:0 0 0 3px rgba(78,140,59,.18)}
+  textarea{resize:vertical;min-height:90px}
+  .submit-btn{width:100%;margin-top:.3rem}
+  .form-note{font-size:.78rem;color:var(--muted);margin-top:.8rem;text-align:center}
+  .form-success{
+    display:none;background:#EDF4E7;border:1.5px solid var(--leaf);
+    border-radius:6px;padding:1rem;margin-top:1rem;
+    color:var(--evergreen);font-weight:700;text-align:center;font-size:.93rem;
+  }
+
+  /* ============ THE WAY (dark steps band) ============ */
+  .way{background:var(--forest);color:#fff;padding:5.5rem 0}
+  .way .head{text-align:center;max-width:60ch;margin:0 auto 3.5rem}
+  .way h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+  .way-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark)}
+  .way-step{background:var(--forest);padding:2.2rem 1.8rem}
+  .way-step small{display:block;font-weight:700;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem}
+  .way-step h3{font-size:1.45rem;margin-bottom:.6rem;color:#fff}
+  .way-step p{font-size:.93rem;color:#BCCBB9}
+
+  /* ============ GALLERY ROW ============ */
+  .gallery{padding:5rem 0;background:var(--paper)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  .gallery-grid div{height:300px;border-radius:8px;background:var(--stone) center/cover no-repeat}
+  @media(max-width:720px){
+    .gallery-grid{grid-template-columns:1fr}
+    .gallery-grid div{height:220px}
+    .gallery-grid div:nth-child(3){display:none}
+  }
+
+  /* ============ WHY (light features) ============ */
+  .why{background:var(--stone);padding:6rem 0}
+  .why .head{max-width:62ch;margin-bottom:3.5rem}
+  .why h2{font-size:clamp(1.8rem,3.6vw,2.6rem);color:var(--evergreen);margin-bottom:.9rem}
+  .why .head p{color:var(--muted);font-size:1.05rem}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2.5rem}
+  .why-item{border-top:2px solid var(--gold);padding-top:1.4rem}
+  .why-item h3{font-size:1.35rem;color:var(--evergreen);margin-bottom:.6rem}
+  .why-item p{font-size:.96rem;color:var(--muted)}
+
+  /* founder note */
+  .founder{
+    margin-top:3.5rem;background:var(--paper);border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;padding:1.8rem 2rem;max-width:720px;
+  }
+  .founder p{font-size:1rem;color:var(--ink)}
+  .founder cite{display:block;font-style:normal;font-weight:800;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--leaf);margin-top:.8rem}
+
+  /* ============ RESULTS (dark numbers band) ============ */
+  .results{background:var(--evergreen);color:#fff;padding:6rem 0;text-align:center}
+  .results h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:24ch;margin:0 auto 3.5rem}
+  .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;max-width:900px;margin:0 auto}
+  .results .num{font-size:clamp(2.6rem,5vw,3.6rem);color:var(--gold)}
+  .results h4{font-size:1rem;font-weight:700;margin:.4rem 0 .2rem;color:#fff;font-family:'Mulish'}
+  .results p{font-size:.85rem;color:#9FB59C}
+
+  /* ============ HOW IT WORKS ============ */
+  .how{padding:6rem 0;background:var(--paper)}
+  .how .head{max-width:62ch;margin-bottom:3.5rem}
+  .how h2{font-size:clamp(1.8rem,3.6vw,2.6rem);color:var(--evergreen);margin-bottom:.9rem}
+  .how .head p{color:var(--muted);font-size:1.05rem}
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2.5rem}
+  .how-step .num{font-size:2.2rem;color:var(--leaf);display:block;margin-bottom:.7rem}
+  .how-step h3{font-size:1.25rem;color:var(--evergreen);margin-bottom:.5rem}
+  .how-step p{font-size:.95rem;color:var(--muted)}
+  .how-link{display:inline-block;margin-top:3rem;font-weight:800;color:var(--leaf);text-decoration:none;font-size:1.02rem}
+  .how-link:hover{color:var(--leaf-dark);text-decoration:underline}
+
+  /* ============ REVIEW ============ */
+  .review{background:var(--stone);padding:5.5rem 0;text-align:center}
+  .review .stars{color:var(--gold);font-size:1.25rem;letter-spacing:.35em;margin-bottom:1.3rem}
+  .review blockquote{
+    font-family:'Marcellus',serif;font-size:clamp(1.35rem,2.8vw,1.9rem);
+    max-width:30ch;margin:0 auto 1.3rem;color:var(--evergreen);line-height:1.4;
+  }
+  .review cite{font-style:normal;font-weight:700;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+  /* ============ CLOSING CTA ============ */
+  .cta{background:var(--forest);color:#fff;padding:6rem 0;text-align:center}
+  .cta h2{font-size:clamp(1.9rem,3.8vw,2.7rem);max-width:22ch;margin:0 auto 1.2rem}
+  .cta p{color:#C7D4C4;font-size:1.05rem;max-width:54ch;margin:0 auto 2.2rem}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--evergreen);color:#9FB59C;padding:4.5rem 0 7rem}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
+  @media(max-width:720px){.foot-grid{grid-template-columns:1fr}}
+  .foot-grid .logo b{font-size:1.4rem}
+  .foot-grid p{font-size:.92rem;margin-top:1rem;max-width:34ch}
+  footer h4{font-family:'Mulish';font-size:.78rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:.55rem}
+  footer ul a{color:#C7D4C4;text-decoration:none;font-size:.93rem}
+  footer ul a:hover{color:var(--gold)}
+  .copyright{border-top:1px solid var(--line-dark);margin-top:3rem;padding-top:1.5rem;font-size:.78rem;color:#6E8268}
+
+  /* sticky mobile quote bar */
+  .sticky-quote{
+    position:fixed;left:0;right:0;bottom:0;z-index:95;display:none;
+    padding:.7rem .9rem calc(.7rem + env(safe-area-inset-bottom));
+    background:rgba(13,33,20,.97);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line-dark);
+  }
+  .sticky-quote a{
+    display:block;text-align:center;background:var(--leaf);color:#fff;
+    text-decoration:none;font-weight:800;font-size:1.02rem;
+    padding:.95rem;border-radius:8px;
+  }
+  @media(max-width:760px){.sticky-quote{display:block}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     EDIT ME:
+     1. Set LEAD_EMAIL in the script at the bottom (Gareth's email)
+     2. Stats (gardens cleared, 5.0★ etc.) are placeholders — use real ones
+     3. Testimonial quote is placeholder copy — replace with a real review
+     ============================================================ -->
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#"><b>G.T.W Garden Clearances</b><small>Clearance · Lawns · Waste</small></a>
+    <div class="nav-links">
+      <a class="nl" href="#services">Services</a>
+      <a class="nl" href="#how">How It Works</a>
+      <a class="nl" href="#reviews">Reviews</a>
+      <a class="btn btn-solid" href="#quote">Free Quote</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="quote">
+  <div class="hero-bg" role="img" aria-label="Lawn mower cutting fresh green grass"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow gold">Garden Clearance & Lawn Care</span>
+        <h1>Reclaim Your Garden, Without Lifting a Finger</h1>
+        <p class="lead">G.T.W is a professional garden clearance and lawn care service for homeowners, landlords and estate agents across Cheshire West &amp; Chester and Flintshire — cut, cleared and legally disposed of in a single visit.</p>
+        <ul class="hero-points">
+          <li>Free, fixed quotes — usually within one working day</li>
+          <li>Quote from photos, no site visit needed</li>
+          <li>Licensed waste carrier, fully insured</li>
+        </ul>
+      </div>
+
+      <form id="leadForm" novalidate>
+        <h3>Get Your Free Quote</h3>
+        <p class="sub">Two minutes now, a fixed price by tomorrow. Gareth replies to every request personally.</p>
+        <div class="row2">
+          <div class="field">
+            <label for="name">Your Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="postcode">Postcode</label>
+            <input id="postcode" name="postcode" type="text" autocomplete="postal-code" placeholder="e.g. CH1 or CH7" required>
+          </div>
+          <div class="field">
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+              <option value="">Choose a service…</option>
+              <option>Full garden clearance</option>
+              <option>Lawn cutting — one-off rescue</option>
+              <option>Lawn cutting — regular visits</option>
+              <option>Hedge & shrub work</option>
+              <option>Green waste removal only</option>
+              <option>Landlord / estate agent job</option>
+              <option>Something else</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="details">About the Job</label>
+          <textarea id="details" name="details" placeholder="Rough garden size, how overgrown it is, anything that needs taking away…"></textarea>
+        </div>
+        <button class="btn btn-solid submit-btn" type="submit">Get My Fixed Quote</button>
+        <p class="form-note">Your details are only used to reply about this quote. Nothing else.</p>
+        <div class="form-success" id="formSuccess">
+          Thanks — your request is ready to send in the email window that just opened. Gareth will be in touch shortly after.
+        </div>
+      </form>
+    </div>
+
+    <div class="hero-stats">
+      <div><span class="num">1 Day</span><p>Most Gardens Cleared</p></div>
+      <div><span class="num">100%</span><p>Waste Legally Disposed</p></div>
+      <div><span class="num">Free</span><p>Fixed Quotes From Photos</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="way" id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow gold">The G.T.W Way</span>
+      <h2>Four standards behind every garden we touch</h2>
+    </div>
+    <div class="way-grid">
+      <div class="way-step reveal">
+        <small>Standard 01</small>
+        <h3>Clear</h3>
+        <p>Brambles, overgrowth, old sheds and rubbish — full or partial clearances stripped back to a blank canvas. Ideal for house sales, probate and end-of-tenancy.</p>
+      </div>
+      <div class="way-step reveal">
+        <small>Standard 02</small>
+        <h3>Cut</h3>
+        <p>Overgrown lawn rescues and regular cuts through the season. Edges strimmed, hedges shaped, shrubs pruned — finished properly, every time.</p>
+      </div>
+      <div class="way-step reveal">
+        <small>Standard 03</small>
+        <h3>Remove</h3>
+        <p>Everything we cut leaves with us on the day. As a licensed waste carrier, every load goes to a licensed site with full paperwork — never a lay-by.</p>
+      </div>
+      <div class="way-step reveal">
+        <small>Standard 04</small>
+        <h3>Maintain</h3>
+        <p>Once it's back under control, we'll keep it that way — fortnightly or monthly visits so your garden never gets away from you again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap gallery-grid reveal" aria-hidden="true">
+    <div style="background-image:url('https://images.unsplash.com/photo-1734303023491-db8037a21f09?auto=format&fit=crop&w=800&q=70')"></div>
+    <div style="background-image:url('https://images.unsplash.com/photo-1763236685994-99065a1c2450?auto=format&fit=crop&w=800&q=70')"></div>
+    <div style="background-image:url('https://images.unsplash.com/photo-1734079692160-fcbe4be6ab96?auto=format&fit=crop&w=800&q=70')"></div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow green">Why G.T.W?</span>
+      <h2>We're not just another gardener with a strimmer</h2>
+      <p>We're a clearance-first service built for jobs other gardeners turn away — and we take the waste with us, legally, every time.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <h3>Licensed Waste Carrier</h3>
+        <p>Registered with the Environment Agency and fully insured. Your green waste is tracked to a licensed site — you'll never find it fly-tipped with your name on it.</p>
+      </div>
+      <div class="why-item reveal">
+        <h3>Fixed, Honest Pricing</h3>
+        <p>Quote from photos in one working day. The price we agree is the price you pay — no day rates that drift, no surprises when the van is loaded.</p>
+      </div>
+      <div class="why-item reveal">
+        <h3>One Point of Contact</h3>
+        <p>You deal with Gareth directly, from first quote to finished garden. No call centres, no subcontractors you've never met — the person who quotes is the person who turns up.</p>
+      </div>
+    </div>
+    <div class="founder reveal">
+      <p>"Most of the gardens we take on are the ones people are embarrassed to show anyone. There's no judgement here — send the photos as they are, and I'll send you an honest fixed price to put it right."</p>
+      <cite>— Gareth, Founder of G.T.W Garden Clearances</cite>
+    </div>
+  </div>
+</section>
+
+<section class="results" id="reviews">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow gold">Real Results</span>
+      <h2>Gardens cleared. Weekends given back.</h2>
+    </div>
+    <div class="results-grid">
+      <div class="reveal">
+        <span class="num">200+</span>
+        <h4>Gardens transformed</h4>
+        <p>across Cheshire West &amp; Chester and Flintshire</p>
+      </div>
+      <div class="reveal">
+        <span class="num">Same Week</span>
+        <h4>Slots usually available</h4>
+        <p>fast turnarounds for agents</p>
+      </div>
+      <div class="reveal">
+        <span class="num">5.0 ★</span>
+        <h4>Rated by local customers</h4>
+        <p>reviews available on request</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="review">
+  <div class="wrap reveal">
+    <div class="stars" aria-label="Five star review">★★★★★</div>
+    <blockquote>"They turned a garden we'd given up on into the reason the house sold."</blockquote>
+    <cite>Homeowner — Chester</cite>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow green">How It Works</span>
+      <h2>From photos to a finished garden</h2>
+      <p>No waiting in for a site visit. Most quotes happen entirely from your phone.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <span class="num">01</span>
+        <h3>Send Photos</h3>
+        <p>Fill in the quote form with a few details about your garden. Takes two minutes — Gareth may ask for a couple of photos by reply.</p>
+      </div>
+      <div class="how-step reveal">
+        <span class="num">02</span>
+        <h3>Fixed Quote</h3>
+        <p>You'll receive a clear, fixed price — usually within one working day. No obligation, no pushy follow-ups.</p>
+      </div>
+      <div class="how-step reveal">
+        <span class="num">03</span>
+        <h3>We Clear & Cut</h3>
+        <p>We arrive on the agreed day, do the lot, and load every scrap of waste into the van as we go.</p>
+      </div>
+      <div class="how-step reveal">
+        <span class="num">04</span>
+        <h3>Done & Dusted</h3>
+        <p>Swept, tidied and photographed. Waste transfer paperwork provided, and a maintenance plan if you'd like one.</p>
+      </div>
+    </div>
+    <a class="how-link reveal" href="#quote">Get your free fixed quote →</a>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap reveal">
+    <span class="eyebrow gold">Ready When You Are</span>
+    <h2>Ready to take your garden back?</h2>
+    <p>Tell us about the job and Gareth will come back with a fixed price — usually within one working day. No commitment, no judgement, no surprises.</p>
+    <a class="btn btn-solid" href="#quote">Get Your Free Quote</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="#"><b>G.T.W Garden Clearances</b><small>Clearance · Lawns · Waste</small></a>
+        <p>Professional garden clearance, lawn care and green waste removal for homeowners, landlords and estate agents across Cheshire West &amp; Chester and Flintshire.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#quote">Free Quote</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li>Quotes answered Mon–Sat</li>
+          <li><a href="#quote">Request a free quote →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">© 2026 G.T.W Garden Clearances</div>
+  </div>
+</footer>
+
+<div class="sticky-quote">
+  <a href="#quote">Get a Free Quote</a>
+</div>
+
+<script>
+/* Scroll-reveal */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}), {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* =====================================================================
+   LEAD FORM — zero-setup version using a pre-filled email.
+   For proper capture: sign up free at https://formspree.io, then
+   1) delete this submit handler, 2) add to the <form> tag:
+      method="POST" action="https://formspree.io/f/YOUR_FORM_ID"
+   ===================================================================== */
+const LEAD_EMAIL = "gareth@gtwgardens.example"; // <-- change to Gareth's real email
+
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  if (!this.checkValidity()) { this.reportValidity(); return; }
+  const v = id => document.getElementById(id).value.trim();
+  const subject = "Quote request — " + v('service') + " (" + v('postcode') + ")";
+  const body = "Name: " + v('name') + "\nPhone: " + v('phone') +
+    "\nPostcode: " + v('postcode') + "\nService: " + v('service') +
+    "\n\nJob details:\n" + v('details');
+  location.href = "mailto:" + LEAD_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  document.getElementById('formSuccess').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
