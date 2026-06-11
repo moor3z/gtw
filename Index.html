@@ -73,13 +73,11 @@
   .nav .btn{padding:.6rem 1.3rem;font-size:.86rem;white-space:nowrap}
   @media(max-width:880px){
     .nav-links a.nl{display:none}
-    .nav-inner{gap:.8rem;padding-top:.8rem;padding-bottom:.8rem}
-    .logo b{font-size:1rem;white-space:nowrap}
-    .logo small{font-size:.5rem;letter-spacing:.24em}
-    .nav .btn{padding:.5rem .9rem;font-size:.78rem}
-  }
-  @media(max-width:360px){
-    .logo b{font-size:.9rem}
+    .nav-inner{gap:.7rem;padding-top:.75rem;padding-bottom:.75rem}
+    .logo{flex:1;min-width:0}
+    .logo b{font-size:clamp(.8rem,3.6vw,1rem);white-space:nowrap}
+    .logo small{font-size:clamp(.42rem,1.6vw,.5rem);letter-spacing:.22em;white-space:nowrap}
+    .nav .btn{padding:.45rem .8rem;font-size:.76rem;flex:0 0 auto}
   }
 
   /* ============ HERO (split: copy + lead form) ============ */
