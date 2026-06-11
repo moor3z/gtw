@@ -70,8 +70,15 @@
   .nav-links{display:flex;gap:1.8rem;align-items:center}
   .nav-links a.nl{color:#E5ECE3;text-decoration:none;font-weight:600;font-size:.9rem}
   .nav-links a.nl:hover{color:var(--gold)}
-  .nav .btn{padding:.6rem 1.3rem;font-size:.86rem}
-  @media(max-width:880px){.nav-links a.nl{display:none}}
+  .nav .btn{padding:.6rem 1.3rem;font-size:.86rem;white-space:nowrap}
+  @media(max-width:880px){
+    .nav-links a.nl{display:none}
+    .nav-inner{gap:.7rem;padding-top:.75rem;padding-bottom:.75rem}
+    .logo{flex:1;min-width:0}
+    .logo b{font-size:clamp(.8rem,3.6vw,1rem);white-space:nowrap}
+    .logo small{font-size:clamp(.42rem,1.6vw,.5rem);letter-spacing:.22em;white-space:nowrap}
+    .nav .btn{padding:.45rem .8rem;font-size:.76rem;flex:0 0 auto}
+  }
 
   /* ============ HERO (split: copy + lead form) ============ */
   .hero{
