@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://moor3z.github.io/gtw/sitemap.xml
