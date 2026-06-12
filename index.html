@@ -202,10 +202,17 @@
   .ba-shot .tag.before{background:rgba(13,33,20,.85);color:#fff}
   .ba-shot .tag.after{background:var(--gold);color:var(--evergreen)}
   .ba-cap{text-align:center;font-size:.92rem;color:var(--muted);margin-top:1.6rem}
+  .swipe-hint{display:none}
   @media(max-width:720px){
-    .ba-shot{height:auto;aspect-ratio:3/4}
-    .ba-grid{gap:.8rem}
+    .ba-grid{
+      display:flex;overflow-x:auto;gap:.8rem;
+      scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;padding-bottom:.2rem;
+    }
+    .ba-grid::-webkit-scrollbar{display:none}
+    .ba-shot{flex:0 0 84%;scroll-snap-align:center;height:auto;aspect-ratio:3/4}
     .ba-shot .tag{top:.7rem;left:.7rem;font-size:.6rem;padding:.35rem .7rem;letter-spacing:.18em}
+    .swipe-hint{display:block;text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-1.4rem 0 1.6rem}
   }
 
   /* ============ WHY (light features) ============ */
@@ -409,13 +416,13 @@
       </div>
       <div class="way-step reveal">
         <small>Standard 03</small>
-        <h3>Trim</h3>
-        <p>Hedges reduced and shaped, shrubs and small trees pruned hard or taken out entirely — crisp lines, not a quick once-over.</p>
+        <h3>Protect</h3>
+        <p>Tell us what stays — established plants, borders, anything you love — and we'll work carefully around it. A clearance doesn't mean scorched earth.</p>
       </div>
       <div class="way-step reveal">
         <small>Standard 04</small>
         <h3>Remove</h3>
-        <p>Everything we cut leaves with us on the day. Every load goes to a licensed site with full paperwork — never a lay-by.</p>
+        <p>Everything we cut leaves with us on the day. Every load goes to a licensed site — never a lay-by.</p>
       </div>
       <div class="way-step reveal">
         <small>Standard 05</small>
@@ -425,7 +432,7 @@
       <div class="way-step reveal">
         <small>Standard 06</small>
         <h3>Prove</h3>
-        <p>Before-and-after photos and green waste transfer paperwork with every clearance — proof the job was done, and done properly.</p>
+        <p>Before-and-after photos with every clearance — proof the job was done, and done properly.</p>
       </div>
     </div>
   </div>
@@ -437,6 +444,7 @@
       <span class="eyebrow green">The Difference a Day Makes</span>
       <h2>From lost garden to blank canvas</h2>
     </div>
+    <p class="swipe-hint">Swipe each pair to compare →</p>
     <div class="ba-grid reveal">
       <div class="ba-shot" role="img" aria-label="Overgrown garden before clearance" style="background-image:url('before.jpg')">
         <span class="tag before">Before</span>
@@ -582,7 +590,7 @@
       <div class="how-step reveal">
         <span class="num">06</span>
         <h3>Done & Dusted</h3>
-        <p>Swept, tidied and photographed, with green waste transfer paperwork provided before we leave.</p>
+        <p>Swept, tidied and photographed before we leave — the garden handed back better than we found it.</p>
       </div>
     </div>
     <a class="how-link reveal" href="#quote">Get your free fixed quote →</a>
