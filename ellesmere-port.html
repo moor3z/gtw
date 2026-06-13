@@ -416,7 +416,14 @@
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <a class="nl" href="index.html">Home</a>
-      <a class="nl" href="index.html#services">Services</a>
+      <div class="has-sub">
+        <button class="sub-toggle" id="svcToggle" aria-expanded="false">Services</button>
+        <div class="submenu" id="svcSubmenu">
+          <a href="index.html#services">Garden Clearance</a>
+          <a href="end-of-tenancy.html">End of Tenancy Clearance</a>
+          <a href="green-waste-removal.html">Green Waste Removal</a>
+        </div>
+      </div>
       <a class="nl" href="index.html#how">How It Works</a>
       <div class="has-sub">
         <button class="sub-toggle" id="subToggle" aria-expanded="false">Areas</button>
@@ -449,7 +456,9 @@
         </ul>
       </div>
 
-      <form id="leadForm" novalidate>
+      <form id="leadForm" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="quote">
+        <p hidden><label>Don’t fill this in: <input name="bot-field"></label></p>
         <h3>Get Your Free Ellesmere Port Quote</h3>
         <p class="sub">Two minutes now, a fixed price by tomorrow. Gareth replies to every request personally.</p>
         <div class="row2">
@@ -487,7 +496,7 @@
         <button class="btn btn-solid submit-btn" type="submit">Get My Fixed Quote</button>
         <p class="form-note">Your details are only used to reply about this quote. Nothing else.</p>
         <div class="form-success" id="formSuccess">
-          Thanks — your request is ready to send in the email window that just opened. Gareth will be in touch shortly after.
+          Thanks — your request has been sent. Gareth will be in touch shortly, usually within one working day.
         </div>
       </form>
     </div>
@@ -604,6 +613,7 @@
           <li><a href="index.html#services">Services</a></li>
           <li><a href="index.html#reviews">Reviews</a></li>
           <li><a href="end-of-tenancy.html">End of Tenancy Clearance</a></li>
+          <li><a href="green-waste-removal.html">Green Waste Removal</a></li>
           <li><a href="#quote">Free Quote</a></li>
         </ul>
       </div>
@@ -660,18 +670,32 @@ subToggle.addEventListener('click', (e) => {
   subToggle.setAttribute('aria-expanded', open);
 });
 
-const LEAD_EMAIL = "gareth@gtwgardens.example"; // <-- change to Gareth's real email
+const svcToggle = document.getElementById('svcToggle');
+const svcSubmenu = document.getElementById('svcSubmenu');
+svcToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = svcSubmenu.classList.toggle('open');
+  svcToggle.classList.toggle('open', open);
+  svcToggle.setAttribute('aria-expanded', open);
+});
+
 
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
   if (!this.checkValidity()) { this.reportValidity(); return; }
-  const v = id => document.getElementById(id).value.trim();
-  const subject = "Ellesmere Port quote request — " + v('service') + " (" + v('postcode') + ")";
-  const body = "Name: " + v('name') + "\nPhone: " + v('phone') +
-    "\nPostcode: " + v('postcode') + "\nService: " + v('service') +
-    "\n\nJob details:\n" + v('details');
-  location.href = "mailto:" + LEAD_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-  document.getElementById('formSuccess').style.display = 'block';
+  const data = new FormData(this);
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(data).toString()
+  }).then(() => {
+    this.reset();
+    document.getElementById('formSuccess').style.display = 'block';
+  }).catch(() => {
+    document.getElementById('formSuccess').textContent =
+      'Something went wrong sending your request — please try again, or email Gtw.gardenclearances@gmail.com directly.';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
 });
 </script>
 
