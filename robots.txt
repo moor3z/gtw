@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://moor3z.github.io/gtw/sitemap.xml
+Sitemap: https://gtwgardenclearances.com/sitemap.xml
