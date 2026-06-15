@@ -793,6 +793,13 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   }).then(() => {
     this.reset();
     document.getElementById('formSuccess').style.display = 'block';
+    // GA4 conversion: quote form submitted
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        'event_category': 'quote_form',
+        'event_label': document.title
+      });
+    }
   }).catch(() => {
     document.getElementById('formSuccess').textContent =
       'Something went wrong sending your request — please try again, or email Gtw.gardenclearances@gmail.com directly.';
