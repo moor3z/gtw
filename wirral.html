@@ -467,7 +467,7 @@
         </ul>
       </div>
 
-      <form id="leadForm" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <form id="leadForm" name="quote" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="quote">
         <p hidden><label>Don’t fill this in: <input name="bot-field"></label></p>
         <h3>Get Your Free Wirral Quote</h3>
@@ -504,6 +504,7 @@
           <label for="details">About the Job</label>
           <textarea id="details" name="details" placeholder="Rough garden size, how overgrown it is, which part of the Wirral you're in…"></textarea>
         </div>
+        <div data-netlify-recaptcha="true"></div>
         <button class="btn btn-solid submit-btn" type="submit">Get My Fixed Quote</button>
         <p class="form-note">Your details are only used to reply about this quote. Nothing else.</p>
         <div class="form-success" id="formSuccess">
@@ -695,6 +696,14 @@ svcToggle.addEventListener('click', (e) => {
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
   if (!this.checkValidity()) { this.reportValidity(); return; }
+  // reCAPTCHA must be completed
+  if (typeof grecaptcha !== 'undefined') {
+    const resp = grecaptcha.getResponse();
+    if (!resp) {
+      alert('Please complete the "I\'m not a robot" check before sending.');
+      return;
+    }
+  }
   const data = new FormData(this);
   fetch('/', {
     method: 'POST',
