@@ -382,6 +382,13 @@
     .map-section{padding:3rem 0}
     .map-frame iframe,.map-placeholder{height:320px}
   }
+  .nav-call{white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+  .nav-call .call-ico{font-size:.95em;line-height:1}
+  @media(max-width:760px){
+    .nav-links .nav-call{margin:1rem 1.5rem 0;justify-content:center}
+    .nav-links .mobile-quote{display:block}
+  }
+  .mobile-quote{display:none}
 </style>
 </head>
 <body>
@@ -420,7 +427,8 @@
         </div>
       </div>
       <a class="nl" href="#reviews">Reviews</a>
-      <a class="btn btn-solid" href="#quote">Free Quote</a>
+      <a class="btn btn-solid nav-call" href="tel:+447359138465" onclick="if(typeof gtag==='function'){gtag('event','click_to_call',{'event_category':'phone','event_label':document.title});}"><span class="call-ico">☎</span> 07359 138465</a>
+      <a class="nl mobile-quote" href="#quote">Get a Free Quote</a>
     </div>
   </div>
 </header>
@@ -694,20 +702,10 @@
   </div>
 </section>
 
-<section class="cta">
-  <div class="wrap reveal">
-    <span class="eyebrow gold">Ready When You Are</span>
-    <h2>Ready to take your garden back?</h2>
-    <p>Tell us about the job and Gareth will come back with a fixed price — usually within one working day. No commitment, no judgement, no surprises.</p>
-    <p style="font-size:.88rem;color:#9FB59C;max-width:60ch;margin:-1rem auto 2.2rem">We proudly cover Chester, Ellesmere Port, Tarporley, Mold, Buckley, Deeside, Connah's Quay, Flintshire, and the surrounding areas. If you can't see your location listed, please get in touch to discuss your requirements.</p>
-    <a class="btn btn-solid" href="#quote">Get Your Free Quote</a>
-  </div>
-</section>
-
 <section class="map-section">
   <div class="wrap reveal">
     <div class="head">
-      <span class="eyebrow green">Find Us</span>
+      <span class="eyebrow green">Areas We Service</span>
       <h2>Covering Cheshire West &amp; Chester, Flintshire &amp; the Wirral</h2>
       <p class="map-intro">A local, family-run garden clearance service. Tap through to our Google profile to see reviews and get in touch.</p>
     </div>
@@ -716,6 +714,15 @@
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305625.9854365134!2d-3.0519296500000004!3d53.241099899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46184469ae54169%3A0xffa6a64c2b2e7d25!2sGTW%20Garden%20Clearances!5e0!3m2!1sen!2suk!4v1781615114320!5m2!1sen!2suk" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="GTW Garden Clearances service area map"></iframe>
       <!-- GBP_MAP_EMBED_END -->
     </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap reveal">
+    <span class="eyebrow gold">Ready When You Are</span>
+    <h2>Ready to take your garden back?</h2>
+    <p>Tell us about the job and Gareth will come back with a fixed price — usually within one working day. No commitment, no judgement, no surprises.</p>
+    <a class="btn btn-solid" href="#quote">Get Your Free Quote</a>
   </div>
 </section>
 
