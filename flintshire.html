@@ -257,7 +257,7 @@
   form .sub{font-size:.92rem;color:var(--muted);margin-bottom:1.5rem}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:520px){.row2{grid-template-columns:1fr}}
-  .field{margin-bottom:1.05rem}
+  .field{margin-bottom:.8rem}
   label{display:block;font-weight:700;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;color:var(--evergreen)}
   input,select,textarea{
     width:100%;font:inherit;font-size:1rem;color:var(--ink);
@@ -430,8 +430,18 @@
   .nav-call{white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
   .nav-call .call-ico{font-size:.95em;line-height:1}
   @media(max-width:760px){
-    .nav-links .nav-call{margin:1rem 1.5rem 0;justify-content:center}
+    .nav-links .nav-call{margin:1rem 1.5rem 2rem;justify-content:center}
   }
+  .photo-grouplabel .opt{font-weight:400;color:var(--muted);font-size:.85em}
+  .photo-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .photo-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:64px;border:1.5px dashed rgba(13,33,20,.3);border-radius:10px;background:#fafbf9;cursor:pointer;text-align:center;padding:.55rem .4rem;transition:border-color .15s,background .15s}
+  .photo-tile:hover{border-color:var(--leaf,#4E8C3B);background:#f2f6ee}
+  .photo-tile .photo-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+  .photo-tile-icon{font-size:1.25rem;color:var(--leaf,#4E8C3B);line-height:1}
+  .photo-tile-text{font-size:.7rem;color:var(--muted);word-break:break-word;line-height:1.2}
+  .photo-tile.has-file{border-style:solid;border-color:var(--leaf,#4E8C3B);background:#edf4e7}
+  .photo-tile.has-file .photo-tile-icon{color:var(--leaf,#4E8C3B)}
+  .photo-note{font-size:.78rem;color:var(--muted);margin:.5rem 0 0}
 </style>
 </head>
 <body>
@@ -483,7 +493,7 @@
         </ul>
       </div>
 
-      <form id="leadForm" name="quote" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" novalidate>
+      <form id="leadForm" name="quote" method="POST" enctype="multipart/form-data" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="quote">
         <p hidden><label>Don’t fill this in: <input name="bot-field"></label></p>
         <h3>Get Your Free Flintshire Quote</h3>
@@ -519,6 +529,27 @@
         <div class="field">
           <label for="details">About the Job</label>
           <textarea id="details" name="details" placeholder="Rough garden size, how overgrown it is, which part of Flintshire you're in…"></textarea>
+        </div>
+        <div class="field photo-field">
+          <label class="photo-grouplabel">Photos of the Garden <span class="opt">(optional — really helps us quote)</span></label>
+          <div class="photo-tiles">
+            <label class="photo-tile" for="photo1">
+              <input id="photo1" name="photo1" type="file" accept="image/*" class="photo-input">
+              <span class="photo-tile-icon">＋</span>
+              <span class="photo-tile-text">Add a photo</span>
+            </label>
+            <label class="photo-tile" for="photo2">
+              <input id="photo2" name="photo2" type="file" accept="image/*" class="photo-input">
+              <span class="photo-tile-icon">＋</span>
+              <span class="photo-tile-text">Add a photo</span>
+            </label>
+            <label class="photo-tile" for="photo3">
+              <input id="photo3" name="photo3" type="file" accept="image/*" class="photo-input">
+              <span class="photo-tile-icon">＋</span>
+              <span class="photo-tile-text">Add a photo</span>
+            </label>
+          </div>
+          <p class="photo-note">Add up to 3 photos. Large photos are shrunk automatically before sending.</p>
         </div>
         <div data-netlify-recaptcha="true"></div>
         <button class="btn btn-solid submit-btn" type="submit">Get My Fixed Quote</button>
@@ -724,36 +755,127 @@ svcToggle.addEventListener('click', (e) => {
 });
 
 
+/* =====================================================================
+   LEAD FORM — Netlify Forms with photo uploads.
+   Photos are compressed client-side before sending to stay within
+   Netlify's 8MB request limit. reCAPTCHA + generate_lead preserved.
+   ===================================================================== */
+
+// Update photo tiles to show the chosen file (filename + checkmark)
+Array.prototype.forEach.call(document.querySelectorAll('.photo-tile'), function(tile){
+  var input = tile.querySelector('.photo-input');
+  var icon = tile.querySelector('.photo-tile-icon');
+  var text = tile.querySelector('.photo-tile-text');
+  if(!input) return;
+  input.addEventListener('change', function(){
+    if(input.files && input.files[0]){
+      tile.classList.add('has-file');
+      if(icon) icon.textContent = '✓';
+      if(text) text.textContent = input.files[0].name;
+    } else {
+      tile.classList.remove('has-file');
+      if(icon) icon.textContent = '＋';
+      if(text) text.textContent = 'Add a photo';
+    }
+  });
+});
+
+// Compress an image file in the browser: resize to max 1280px, JPEG ~0.6 quality.
+// Turns a 4-5MB phone photo into roughly 300-600KB.
+function compressImage(file){
+  return new Promise(function(resolve){
+    if(!file || !file.type || file.type.indexOf('image/') !== 0){ resolve(file); return; }
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      var img = new Image();
+      img.onload = function(){
+        var maxDim = 1280;
+        var w = img.width, h = img.height;
+        if(w > maxDim || h > maxDim){
+          if(w >= h){ h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(function(blob){
+          if(!blob){ resolve(file); return; }
+          resolve(new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type:'image/jpeg' }));
+        }, 'image/jpeg', 0.6);
+      };
+      img.onerror = function(){ resolve(file); };
+      img.src = ev.target.result;
+    };
+    reader.onerror = function(){ resolve(file); };
+    reader.readAsDataURL(file);
+  });
+}
+
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
-  if (!this.checkValidity()) { this.reportValidity(); return; }
+  var form = this;
+  if (!form.checkValidity()) { form.reportValidity(); return; }
   // reCAPTCHA must be completed
   if (typeof grecaptcha !== 'undefined') {
-    const resp = grecaptcha.getResponse();
+    var resp = grecaptcha.getResponse();
     if (!resp) {
       alert('Please complete the "I\'m not a robot" check before sending.');
       return;
     }
   }
-  const data = new FormData(this);
-  fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams(data).toString()
-  }).then(() => {
-    this.reset();
-    document.getElementById('formSuccess').style.display = 'block';
-    // GA4 conversion: quote form submitted
-    if (typeof gtag === 'function') {
-      gtag('event', 'generate_lead', {
-        'event_category': 'quote_form',
-        'event_label': document.title
-      });
+
+  var btn = form.querySelector('.submit-btn');
+  var origText = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  // Compress any chosen photos, then build FormData
+  var photoInputs = Array.prototype.slice.call(form.querySelectorAll('.photo-input'));
+  var jobs = photoInputs.map(function(input){
+    var f = input.files && input.files[0];
+    return f ? compressImage(f) : Promise.resolve(null);
+  });
+
+  Promise.all(jobs).then(function(compressed){
+    var data = new FormData(form);
+    // Replace raw photos with compressed versions
+    photoInputs.forEach(function(input, i){
+      if(compressed[i]){ data.set(input.name, compressed[i]); }
+      else { data.delete(input.name); }
+    });
+
+    // Guard: warn if total payload is still too big for Netlify (8MB cap)
+    var total = 0;
+    compressed.forEach(function(f){ if(f) total += f.size; });
+    if(total > 7000000){
+      if(btn){ btn.disabled = false; btn.textContent = origText; }
+      alert('Those photos are still a little large to send. Please try fewer or smaller photos, or email them to Gtw.gardenclearances@gmail.com.');
+      return;
     }
-  }).catch(() => {
-    document.getElementById('formSuccess').textContent =
-      'Something went wrong sending your request — please try again, or email Gtw.gardenclearances@gmail.com directly.';
-    document.getElementById('formSuccess').style.display = 'block';
+
+    // NOTE: no Content-Type header — browser sets multipart boundary for file uploads
+    fetch('/', { method:'POST', body:data })
+      .then(function(){
+        form.reset();
+        Array.prototype.forEach.call(form.querySelectorAll('.photo-tile'), function(t){
+          t.classList.remove('has-file');
+          var ic = t.querySelector('.photo-tile-icon'); if(ic) ic.textContent = '＋';
+          var tx = t.querySelector('.photo-tile-text'); if(tx) tx.textContent = 'Add a photo';
+        });
+        document.getElementById('formSuccess').style.display = 'block';
+        if(btn){ btn.disabled = false; btn.textContent = origText; }
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            'event_category': 'quote_form',
+            'event_label': document.title
+          });
+        }
+      })
+      .catch(function(){
+        if(btn){ btn.disabled = false; btn.textContent = origText; }
+        var s = document.getElementById('formSuccess');
+        s.textContent = 'Something went wrong sending your request — please try again, or email Gtw.gardenclearances@gmail.com directly.';
+        s.style.display = 'block';
+      });
   });
 });
 </script>
