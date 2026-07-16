@@ -1,0 +1,24 @@
+# GTW Garden Clearances — Netlify redirects
+# Purpose: consolidate duplicate indexed URLs (.html, http://, www) onto the
+# canonical extensionless https URLs. Search Console shows mold.html ranking
+# at position ~5 while /mold sits at ~47 — these 301s merge those signals.
+# The trailing "!" forces the redirect even though the .html file exists.
+
+# Protocol + host canonicalisation
+http://gtwgardenclearances.com/*      https://gtwgardenclearances.com/:splat  301!
+http://www.gtwgardenclearances.com/*  https://gtwgardenclearances.com/:splat  301!
+https://www.gtwgardenclearances.com/* https://gtwgardenclearances.com/:splat  301!
+
+# .html -> extensionless
+/index.html               /                     301!
+/chester.html             /chester              301!
+/deeside.html             /deeside              301!
+/denbighshire.html        /denbighshire         301!
+/ellesmere-port.html      /ellesmere-port       301!
+/end-of-tenancy.html      /end-of-tenancy       301!
+/flintshire.html          /flintshire           301!
+/garden-clearance.html    /garden-clearance     301!
+/green-waste-removal.html /green-waste-removal  301!
+/mold.html                /mold                 301!
+/privacy.html              /privacy              301!
+/wirral.html              /wirral               301!
