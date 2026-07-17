@@ -1,0 +1,32 @@
+# GTW Garden Clearances — Netlify security headers
+# Addresses the unscored "Trust and Safety" suggestions in Lighthouse.
+# The first block is safe to deploy as-is. The CSP at the bottom ships in
+# Report-Only mode: it logs would-be violations to the browser console
+# WITHOUT blocking anything, so the form, analytics and maps keep working
+# while you verify it. See the note above it before enforcing.
+
+/*
+  # Force https for a year once a visitor has been here (HSTS)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+  # Nobody may embed this site in an iframe (clickjacking protection)
+  X-Frame-Options: DENY
+
+  # Browsers must respect declared content types (MIME-sniffing protection)
+  X-Content-Type-Options: nosniff
+
+  # Send only the origin, not full URLs, to third parties
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # This site doesn't use camera, mic, or location — say so explicitly
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+  # --- CSP: REPORT-ONLY for now ---------------------------------------
+  # This logs violations to the browser console without blocking anything.
+  # After deploying, browse the site (submit a test quote, check the map
+  # and analytics) and watch the console for CSP reports on a few pages
+  # over a week or two. If nothing legitimate is flagged, enforce it by
+  # renaming this header to "Content-Security-Policy". If Google changes
+  # a domain and something breaks later, switching the name back to
+  # Report-Only un-breaks it instantly.
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://www.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
