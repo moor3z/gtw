@@ -111,17 +111,18 @@
 }
 </script>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preload" as="image" href="hero.jpg" media="(min-width: 761px)">
-<link rel="preload" as="image" href="hero-mobile.jpg" media="(max-width: 760px)">
+<link rel="preload" as="image" href="hero.webp" media="(min-width: 761px)">
+<link rel="preload" as="image" href="hero-mobile.webp" media="(max-width: 760px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
   :root{
     --evergreen:#0D2114;     /* darkest band */
     --forest:#16341F;        /* dark band */
-    --leaf:#4E8C3B;          /* primary green */
-    --leaf-dark:#3E7230;
+    --leaf:#3E7230;          /* primary green (AA: 5.8:1 on white) */
+    --leaf-dark:#2F5722;
     --gold:#C9A24B;          /* premium accent — numbers, stars, rules */
     --paper:#FFFFFF;
     --stone:#F4F6F1;         /* alt light band */
@@ -243,14 +244,14 @@
   }
   .hero-bg{
     position:absolute;inset:0;
-    background:var(--evergreen) url('hero.jpg') center/cover no-repeat;
+    background:var(--evergreen) url('hero.webp') center/cover no-repeat;
   }
   .hero-bg::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(100deg,rgba(13,33,20,.80) 0%,rgba(13,33,20,.62) 55%,rgba(13,33,20,.42) 100%);
   }
   @media(max-width:760px){
-    .hero-bg{background-image:url('hero-mobile.jpg')}
+    .hero-bg{background-image:url('hero-mobile.webp')}
     .hero-bg::after{
       background:linear-gradient(180deg,rgba(13,33,20,.52) 0%,rgba(13,33,20,.36) 60%,rgba(13,33,20,.48) 100%);
     }
@@ -283,7 +284,7 @@
     background:var(--paper);color:var(--ink);border-radius:8px;
     padding:2.2rem 2rem;box-shadow:0 30px 70px rgba(0,0,0,.35);
   }
-  form h3{font-size:1.5rem;color:var(--evergreen);margin-bottom:.3rem}
+  form h2{font-size:1.5rem;color:var(--evergreen);margin-bottom:.3rem}
   form .sub{font-size:.92rem;color:var(--muted);margin-bottom:1.5rem}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:520px){.row2{grid-template-columns:1fr}}
@@ -296,7 +297,7 @@
     transition:border-color .15s ease;
   }
   input:hover,select:hover,textarea:hover{border-color:#B9C4B2}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--leaf);box-shadow:0 0 0 3px rgba(78,140,59,.18)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--leaf);box-shadow:0 0 0 3px rgba(62,114,48,.18)}
   textarea{resize:vertical;min-height:90px}
   .submit-btn{width:100%;margin-top:.3rem}
   .form-note{font-size:.78rem;color:var(--muted);margin-top:.8rem;text-align:center}
@@ -369,7 +370,7 @@
   .results h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:24ch;margin:0 auto 3.5rem}
   .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;max-width:900px;margin:0 auto}
   .results .num{font-size:clamp(1.9rem,3.6vw,2.6rem);color:var(--gold)}
-  .results h4{font-size:1rem;font-weight:700;margin:.4rem 0 .2rem;color:#fff;font-family:'Mulish'}
+  .results h3{font-size:1rem;font-weight:700;margin:.4rem 0 .2rem;color:#fff;font-family:'Mulish',sans-serif}
   .results p{font-size:.85rem;color:#9FB59C}
 
   /* ============ HOW IT WORKS ============ */
@@ -408,12 +409,12 @@
   @media(max-width:720px){.foot-grid{grid-template-columns:1fr}}
   .foot-grid .logo b{font-size:1.4rem}
   .foot-grid p{font-size:.92rem;margin-top:1rem;max-width:34ch}
-  footer h4{font-family:'Mulish';font-size:.78rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+  footer h3{font-family:'Mulish';font-size:.78rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
   footer ul{list-style:none}
   footer ul li{margin-bottom:.55rem}
   footer ul a{color:#C7D4C4;text-decoration:none;font-size:.93rem}
   footer ul a:hover{color:var(--gold)}
-  .copyright{border-top:1px solid var(--line-dark);margin-top:3rem;padding-top:1.5rem;font-size:.78rem;color:#6E8268}
+  .copyright{border-top:1px solid var(--line-dark);margin-top:3rem;padding-top:1.5rem;font-size:.78rem;color:#9FB59C}
 
   /* sticky mobile quote bar */
   .sticky-quote{
@@ -501,12 +502,12 @@
   .photo-grouplabel .opt{font-weight:400;color:var(--muted);font-size:.85em}
   .photo-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
   .photo-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:64px;border:1.5px dashed rgba(13,33,20,.3);border-radius:10px;background:#fafbf9;cursor:pointer;text-align:center;padding:.55rem .4rem;transition:border-color .15s,background .15s}
-  .photo-tile:hover{border-color:var(--leaf,#4E8C3B);background:#f2f6ee}
+  .photo-tile:hover{border-color:var(--leaf,#3E7230);background:#f2f6ee}
   .photo-tile .photo-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
-  .photo-tile-icon{font-size:1.25rem;color:var(--leaf,#4E8C3B);line-height:1}
+  .photo-tile-icon{font-size:1.25rem;color:var(--leaf,#3E7230);line-height:1}
   .photo-tile-text{font-size:.7rem;color:var(--muted);word-break:break-word;line-height:1.2}
-  .photo-tile.has-file{border-style:solid;border-color:var(--leaf,#4E8C3B);background:#edf4e7}
-  .photo-tile.has-file .photo-tile-icon{color:var(--leaf,#4E8C3B)}
+  .photo-tile.has-file{border-style:solid;border-color:var(--leaf,#3E7230);background:#edf4e7}
+  .photo-tile.has-file .photo-tile-icon{color:var(--leaf,#3E7230)}
   .photo-note{font-size:.78rem;color:var(--muted);margin:.5rem 0 0}
 </style>
 </head>
@@ -564,7 +565,7 @@
       <form id="leadForm" name="quote" method="POST" enctype="multipart/form-data" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="quote">
         <p hidden><label>Don’t fill this in: <input name="bot-field"></label></p>
-        <h3>Get Your Free Flintshire Quote</h3>
+        <h2>Get Your Free Flintshire Quote</h2>
         <p class="sub">Two minutes now, a fixed price by tomorrow. Gareth replies to every request personally.</p>
         <div class="row2">
           <div class="field">
@@ -694,10 +695,10 @@
     </div>
     <p class="swipe-hint">Swipe each pair to compare →</p>
     <div class="ba-grid reveal">
-      <div class="ba-shot" role="img" aria-label="Garden lost to brambles and overgrowth before clearance" style="background-image:url('before2.jpg')">
+      <div class="ba-shot" role="img" aria-label="Garden lost to brambles and overgrowth before clearance" style="background-image:url('before2.webp')">
         <span class="tag before">Before</span>
       </div>
-      <div class="ba-shot" role="img" aria-label="The same garden cleared back to grass after our visit" style="background-image:url('after2.jpg')">
+      <div class="ba-shot" role="img" aria-label="The same garden cleared right back after our visit" style="background-image:url('after.webp')">
         <span class="tag after">After</span>
       </div>
     </div>
@@ -824,7 +825,7 @@
         <p>Professional garden clearance and green garden waste removal for homeowners, landlords and estate agents across Cheshire West & Chester, Flintshire and The Wirral.</p>
       </div>
       <div>
-        <h4>Quick Links</h4>
+        <h3>Quick Links</h3>
         <ul>
           <li><a href="/end-of-tenancy">End of Tenancy Clearance</a></li>
           <li><a href="#quote">Free Quote</a></li>
@@ -835,7 +836,7 @@
         </ul>
       </div>
       <div>
-        <h4>Areas We Cover</h4>
+        <h3>Areas We Cover</h3>
         <ul>
           <li><a href="/chester">Chester</a></li>
           <li><a href="/deeside">Deeside</a></li>
@@ -848,7 +849,7 @@
         </ul>
       </div>
       <div>
-        <h4>Get In Touch</h4>
+        <h3>Get In Touch</h3>
         <ul>
           <li>Quotes answered Mon–Sat</li>
           <li><a href="#quote">Request a free quote →</a></li>
