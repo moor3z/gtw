@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checkout | Over The Rainbow</title>
+<meta name="description" content="Enter your delivery details and pay securely.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2e1437">
+<meta property="og:title" content="Checkout | Over The Rainbow">
+<meta property="og:description" content="Enter your delivery details and pay securely.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=5">
+</head>
+<body>
+<main id="main">
+<div class="wrap" style="padding-top:1.5rem"><h1>Checkout</h1>
+<div id="checkout-root">
+ <div class="two-col">
+  <form id="checkout-form" novalidate>
+    <div id="form-error" role="alert" tabindex="-1"></div>
+    <p class="muted">No account needed. We only use these details to send your order.</p>
+    <h2>Your email</h2>
+    <div class="field"><label for="email">Email address <span class="hint">For your order confirmation</span></label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+    <h2>Delivery address</h2>
+    <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+    <div class="field"><label for="line1">Address line 1</label><input id="line1" name="line1" type="text" autocomplete="address-line1" required></div>
+    <div class="field"><label for="line2">Address line 2 <span class="hint">Optional</span></label><input id="line2" name="line2" type="text" autocomplete="address-line2"></div>
+    <div class="row-2">
+      <div class="field"><label for="city">Town or city</label><input id="city" name="city" type="text" autocomplete="address-level2" required></div>
+      <div class="field"><label for="county">County <span class="hint">Optional</span></label><input id="county" name="county" type="text" autocomplete="address-level1"></div>
+    </div>
+    <div class="row-2">
+      <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters" required style="text-transform:uppercase"></div>
+      <div class="field"><label for="country">Country</label><input id="country" type="text" value="United Kingdom" readonly aria-describedby="country-hint"><span class="hint" id="country-hint">We deliver to UK addresses only.</span></div>
+    </div>
+    <div class="field"><label for="phone">Phone number <span class="hint">Optional, only used if there is a delivery problem</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+    <button class="btn btn-primary btn-block" type="submit" id="pay-btn">Continue to payment</button>
+    <p class="small muted" style="margin-top:.75rem" id="pay-note">You will pay securely on Stripe's payment page. Card details never touch this website.</p>
+  </form>
+  <aside class="summary-box" aria-labelledby="sum-title"><h2 id="sum-title">Order summary</h2><div id="summary"><p class="muted">Loading your basket…</p></div><a href="/basket">Edit basket</a></aside>
+ </div>
+</div></div>
+</main>
+<noscript><p style="padding:2rem;text-align:center">This shop needs JavaScript switched on to show products and take orders.</p></noscript>
+<script type="module" src="/assets/js/checkout.js?v=5"></script>
+</body>
+</html>
