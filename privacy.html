@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
+<script>
+  /* Analytics opt-out: honour the visitor's choice before the tag loads */
+  try{ if(localStorage.getItem('gtw_optout')==='1'){ window['ga-disable-G-24QPSNNFL5']=true; } }catch(e){}
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24QPSNNFL5"></script>
 <script>
@@ -536,7 +540,7 @@
            how you actually work, and adjust if needed. -->
 
       <h2>Cookies and analytics</h2>
-      <p>This site uses Google Analytics, which sets cookies (such as <code>_ga</code>) to help us understand how the site is used — pages visited, approximate location, and device type. The quote form is protected by Google reCAPTCHA, which collects device and interaction information to tell humans from bots; use of reCAPTCHA is subject to the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>. You can block or delete cookies at any time through your browser settings, and the site will still work.</p>
+      <p>This site uses Google Analytics, which sets cookies (such as <code>_ga</code>) to help us understand how the site is used — pages visited, approximate location, and device type. The quote form is protected by Google reCAPTCHA, which collects device and interaction information to tell humans from bots; use of reCAPTCHA is subject to the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>. We use Google Analytics only to produce statistics about how this site is used, never for advertising, so under UK rules it does not need a consent banner. You can switch it off at any time with the "Analytics opt-out" link at the bottom of every page: this stops Google Analytics on your browser, removes its cookies and stops the quote form recording how you reached the site. You can also block or delete cookies through your browser settings, and the site will still work.</p>
 
       <h2>Your rights</h2>
       <p>Under UK data protection law you can ask us for a copy of your information, ask us to correct or delete it, object to or restrict how we use it, and ask for it in a portable format. Email <a href="mailto:Gtw.gardenclearances@gmail.com">Gtw.gardenclearances@gmail.com</a> and we'll respond within a month. If you're unhappy with how we've handled your information, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
@@ -589,7 +593,7 @@
         </ul>
       </div>
     </div>
-    <div class="copyright">© 2026 GTW Garden Clearances · <a href="/privacy" style="color:inherit">Privacy Policy</a></div>
+    <div class="copyright">© 2026 GTW Garden Clearances · <a href="/privacy" style="color:inherit">Privacy Policy</a> · <a href="#" id="analyticsOpt" style="color:inherit">Analytics opt-out</a></div>
   </div>
 </footer>
 
@@ -632,6 +636,34 @@ svcToggle.addEventListener('click', (e) => {
   svcToggle.classList.toggle('open', open);
   svcToggle.setAttribute('aria-expanded', open);
 });
+</script>
+
+<script>
+/* Analytics opt-out link (footer): stops Google Analytics and lead-source capture on this browser */
+(function(){
+  var link=document.getElementById('analyticsOpt'); if(!link) return;
+  function isOut(){ try{ return localStorage.getItem('gtw_optout')==='1'; }catch(e){ return false; } }
+  function label(){ link.textContent = isOut() ? 'Analytics off (turn back on)' : 'Analytics opt-out'; }
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    try{
+      if(isOut()){ localStorage.removeItem('gtw_optout'); window['ga-disable-G-24QPSNNFL5']=false; }
+      else{
+        localStorage.setItem('gtw_optout','1'); window['ga-disable-G-24QPSNNFL5']=true;
+        sessionStorage.removeItem('gtw_src'); sessionStorage.removeItem('gtw_land');
+        document.cookie.split(';').forEach(function(c){
+          var n=c.split('=')[0].trim();
+          if(n.indexOf('_ga')===0){
+            document.cookie=n+'=; Max-Age=0; path=/';
+            document.cookie=n+'=; Max-Age=0; path=/; domain=.'+location.hostname.replace(/^www\./,'');
+          }
+        });
+      }
+    }catch(err){}
+    label();
+  });
+  label();
+})();
 </script>
 
 </body>

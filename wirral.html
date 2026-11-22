@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
+<script>
+  /* Analytics opt-out: honour the visitor's choice before the tag loads */
+  try{ if(localStorage.getItem('gtw_optout')==='1'){ window['ga-disable-G-24QPSNNFL5']=true; } }catch(e){}
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24QPSNNFL5"></script>
 <script>
@@ -931,7 +935,7 @@
         </ul>
       </div>
     </div>
-    <div class="copyright">© 2026 GTW Garden Clearances · <a href="/privacy" style="color:inherit">Privacy Policy</a></div>
+    <div class="copyright">© 2026 GTW Garden Clearances · <a href="/privacy" style="color:inherit">Privacy Policy</a> · <a href="#" id="analyticsOpt" style="color:inherit">Analytics opt-out</a></div>
   </div>
 </footer>
 
@@ -1035,7 +1039,7 @@ function compressImage(file){
 /* Lead source: remember how this visitor arrived (first touch this session) */
 (function(){
   try{
-    if(!sessionStorage.getItem('gtw_src')){
+    if(localStorage.getItem('gtw_optout')!=='1' && !sessionStorage.getItem('gtw_src')){
       var q=new URLSearchParams(location.search), u=q.get('utm_source'), src='Direct';
       if(u){ src=u+' / '+(q.get('utm_medium')||'-')+' / '+(q.get('utm_campaign')||'-'); }
       else if(document.referrer){
@@ -1075,10 +1079,10 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
     var data = new FormData(form);
     // Label the enquiry with where it came from
     var ls='Unknown', ll='';
-    try{ ls=sessionStorage.getItem('gtw_src')||'Unknown'; ll=sessionStorage.getItem('gtw_land')||''; }catch(e){}
+    try{ if(localStorage.getItem('gtw_optout')==='1'){ ls='Opted out'; } else { ls=sessionStorage.getItem('gtw_src')||'Unknown'; ll=sessionStorage.getItem('gtw_land')||''; } }catch(e){}
     data.set('lead_source', ls);
     data.set('lead_landing_page', ll);
-    data.set('lead_page', location.pathname);
+    data.set('lead_page', ls==='Opted out' ? '' : location.pathname);
     // Replace raw photos with compressed versions
     photoInputs.forEach(function(input, i){
       if(compressed[i]){ data.set(input.name, compressed[i]); }
@@ -1120,6 +1124,34 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
       });
   });
 });
+</script>
+
+<script>
+/* Analytics opt-out link (footer): stops Google Analytics and lead-source capture on this browser */
+(function(){
+  var link=document.getElementById('analyticsOpt'); if(!link) return;
+  function isOut(){ try{ return localStorage.getItem('gtw_optout')==='1'; }catch(e){ return false; } }
+  function label(){ link.textContent = isOut() ? 'Analytics off (turn back on)' : 'Analytics opt-out'; }
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    try{
+      if(isOut()){ localStorage.removeItem('gtw_optout'); window['ga-disable-G-24QPSNNFL5']=false; }
+      else{
+        localStorage.setItem('gtw_optout','1'); window['ga-disable-G-24QPSNNFL5']=true;
+        sessionStorage.removeItem('gtw_src'); sessionStorage.removeItem('gtw_land');
+        document.cookie.split(';').forEach(function(c){
+          var n=c.split('=')[0].trim();
+          if(n.indexOf('_ga')===0){
+            document.cookie=n+'=; Max-Age=0; path=/';
+            document.cookie=n+'=; Max-Age=0; path=/; domain=.'+location.hostname.replace(/^www\./,'');
+          }
+        });
+      }
+    }catch(err){}
+    label();
+  });
+  label();
+})();
 </script>
 
 </body>
