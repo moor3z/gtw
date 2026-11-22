@@ -721,6 +721,9 @@
       <form id="leadForm" name="quote" method="POST" enctype="multipart/form-data" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="quote">
         <p hidden><label>Don’t fill this in: <input name="bot-field"></label></p>
+        <input type="hidden" name="lead_source" value="">
+        <input type="hidden" name="lead_landing_page" value="">
+        <input type="hidden" name="lead_page" value="">
         <h2>Get Your Free Quote</h2>
         <p class="sub">Two minutes now, a fixed price by tomorrow. The GTW team replies to every request personally.</p>
         <div class="row2">
@@ -1080,7 +1083,7 @@
   <div class="wrap reveal">
     <div class="head">
       <span class="eyebrow green">Areas We Service</span>
-      <h2>Covering Cheshire West &amp; Chester, Flintshire &amp; the Wirral</h2>
+      <h2>Covering Cheshire West &amp; Chester, North Wales &amp; the Wirral</h2>
       <p class="map-intro">A local, family-run garden clearance service. Read our <a href="https://maps.google.com/?cid=18421594171877784869" target="_blank" rel="noopener" style="color:var(--leaf);font-weight:700;text-decoration:none">reviews on Google</a>, or tap the map for directions.</p>
     </div>
     <div class="map-frame">
@@ -1307,6 +1310,21 @@ function compressImage(file){
   });
 }
 
+/* Lead source: remember how this visitor arrived (first touch this session) */
+(function(){
+  try{
+    if(!sessionStorage.getItem('gtw_src')){
+      var q=new URLSearchParams(location.search), u=q.get('utm_source'), src='Direct';
+      if(u){ src=u+' / '+(q.get('utm_medium')||'-')+' / '+(q.get('utm_campaign')||'-'); }
+      else if(document.referrer){
+        var h=new URL(document.referrer).hostname.replace(/^www\./,'');
+        if(h!==location.hostname.replace(/^www\./,'')) src=h;
+      }
+      sessionStorage.setItem('gtw_src',src);
+      sessionStorage.setItem('gtw_land',location.pathname);
+    }
+  }catch(e){}
+})();
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
   var form = this;
@@ -1333,6 +1351,12 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
 
   Promise.all(jobs).then(function(compressed){
     var data = new FormData(form);
+    // Label the enquiry with where it came from
+    var ls='Unknown', ll='';
+    try{ ls=sessionStorage.getItem('gtw_src')||'Unknown'; ll=sessionStorage.getItem('gtw_land')||''; }catch(e){}
+    data.set('lead_source', ls);
+    data.set('lead_landing_page', ll);
+    data.set('lead_page', location.pathname);
     // Replace raw photos with compressed versions
     photoInputs.forEach(function(input, i){
       if(compressed[i]){ data.set(input.name, compressed[i]); }
